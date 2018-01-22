@@ -5,6 +5,22 @@ export default class SignUp extends React.Component {
   static navigationOptions = {
     header: null
   };
+
+// Trying to make firebase auth work
+  signUpPress() {
+    this.state({error:'', loading: true});
+  
+    const{email, password} = this.state;
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      this.state({error: '', loading: false});
+      this.props.navigation.navigate('Home');
+    })
+    .catch(() => {
+        this.state({error: 'Falha ao criar usuario.', loading: false})
+    })
+  };
+
   render() {
     const{navigate} = this.props.navigation;
     return (
@@ -38,7 +54,7 @@ export default class SignUp extends React.Component {
           ref={(input)=> this.passwordInput = input}
           />
 
-          <Button style={styles.buttonContainer} onPress={signUpFunc} title="Criar Conta" color='#f39c12' />
+          <Button style={styles.buttonContainer} onPress={() => navigate('Home', {})} title="Criar Conta" color='#f39c12' />
           <View style={styles.signUpTextCont}>
           <TouchableHighlight
               onPress={() => navigate('Login', {})}

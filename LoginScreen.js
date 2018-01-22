@@ -1,12 +1,42 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, StatusBar, TouchableHighlight } from 'react-native';
 import { StackNavigator} from 'react-navigation';
+import * as firebase from 'firebase';
+
+firebase.initializeApp({
+  apiKey: "AIzaSyBD4QarCQukFWylMnlrSAeeGavBAYRAnrU",
+  authDomain: "personal-9b554.firebaseapp.com",
+  databaseURL: "https://personal-9b554.firebaseio.com",
+  projectId: "personal-9b554",
+  storageBucket: "personal-9b554.appspot.com",
+  messagingSenderId: "234589868101"
+});
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
+// Trying to make firebase auth work
+  constructor(props){
+    super(props);
+    this.state = {email: '', password: '', error:'', loading:false};
+  }
 
+  onLoginPress() {
+    this.state({error:'', loading: true});
+  
+    const{email, password} = this.state;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => {
+      this.state({error: '', loading: false});
+      this.props.navigation.navigate('Home');
+    })
+    .catch(() => {
+        this.state({error: 'Falha de autenticação.', loading: false})
+    })
+  };
+
+  
   render() {
     const{navigate} = this.props.navigation;
     return (
@@ -51,10 +81,6 @@ export default class LoginScreen extends React.Component {
   }
   
 }
-
-function loginFunc() {
-  
-};
 
 const styles = StyleSheet.create({
   container: {
