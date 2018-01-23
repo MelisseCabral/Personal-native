@@ -1,23 +1,24 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, StatusBar, TouchableHighlight} from 'react-native';
+import firebase from 'firebase';
 
 export default class SignUp extends React.Component {
   static navigationOptions = {
     header: null
   };
-
+  state = { email: '', password: '' };
 // Trying to make firebase auth work
   signUpPress() {
-    this.state({error:'', loading: true});
+    this.setState({error:'', loading: true});
   
     const{email, password} = this.state;
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(() => {
-      this.state({error: '', loading: false});
+      this.setState({error: '', loading: false});
       this.props.navigation.navigate('Home');
     })
     .catch(() => {
-        this.state({error: 'Falha ao criar usuario.', loading: false})
+        this.setState({error: 'Falha ao criar usuario.', loading: false})
     })
   };
 
@@ -39,6 +40,8 @@ export default class SignUp extends React.Component {
             autoCapitalize='none'
             autoCorrect={false}
             onSubmitEditing={() => this.passwordInput.focus()}
+            value={this.state.email}
+            onChangeText={email => this.setState({ email })}
             ref={(input)=> this.userInput = input}
              />
           <TextInput style={styles.input} 
@@ -46,15 +49,11 @@ export default class SignUp extends React.Component {
           placeholder='Senha' 
           secureTextEntry
           ref={(input)=> this.passwordInput = input}
-          />
-          <TextInput style={styles.input} 
-          underlineColorAndroid='transparent' 
-          placeholder='Confirme a senha' 
-          secureTextEntry
-          ref={(input)=> this.passwordInput = input}
+          value={this.state.password}
+            onChangeText={password => this.setState({ password })}
           />
 
-          <Button style={styles.buttonContainer} onPress={() => navigate('Home', {})} title="Criar Conta" color='#f39c12' />
+          <Button style={styles.buttonContainer} onPress={this.signUpPress.bind(this)} title="Criar Conta" color='#f39c12' />
           <View style={styles.signUpTextCont}>
           <TouchableHighlight
               onPress={() => navigate('Login', {})}
