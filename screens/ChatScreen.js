@@ -3,7 +3,7 @@ import { AppRegistry,  StyleSheet,  Text,  View, Navigator, Image, Button, Dimen
 import TabNavigator from 'react-native-tab-navigator';
 // Gifted Chat
 import {GiftedChat} from 'react-native-gifted-chat';
-import ChatController from '../ChatController';
+import ChatController from '../controllers/ChatController';
 //Icons Awesome Font
 import Icon from 'react-native-vector-icons/FontAwesome';
 

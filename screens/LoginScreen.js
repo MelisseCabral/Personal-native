@@ -1,29 +1,33 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, StatusBar, TouchableHighlight } from 'react-native';
 import { StackNavigator} from 'react-navigation';
+import firebase from 'firebase';
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
+  
 // Trying to make firebase auth work
+  state = { email: '', password: '' };
+
   constructor(props){
     super(props);
     this.state = {email: '', password: '', error:'', loading:false};
   }
 
   onLoginPress() {
-    this.state({error:'', loading: true});
+    this.setState({ error: '', loading: true});
   
     const{email, password} = this.state;
 
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(() => {
-      this.state({error: '', loading: false});
+      this.setState({ error: '', loading: false});
       this.props.navigation.navigate('Home');
     })
     .catch(() => {
-        this.state({error: 'Falha de autenticação.', loading: false})
+        this.setState({error: 'Falha de autenticação.', loading: false})
     })
   };
 
@@ -45,6 +49,8 @@ export default class LoginScreen extends React.Component {
             keyboardType='email-address'
             autoCapitalize='none'
             autoCorrect={false}
+            value={this.state.email}
+            onChangeText={email => this.setState({ email })}
             onSubmitEditing={() => this.passwordInput.focus()}
             ref={(input)=> this.userInput = input}
              />
@@ -52,10 +58,12 @@ export default class LoginScreen extends React.Component {
           underlineColorAndroid='transparent' 
           placeholder='Senha' 
           secureTextEntry
+          value={this.state.password}
+          onChangeText={password => this.setState({ password })}
           ref={(input)=> this.passwordInput = input}
           />
 
-          <Button style={styles.buttonContainer} onPress={() => navigate('Home', {})} title="Entrar" color='#f39c12' />
+          <Button style={styles.buttonContainer} onPress={this.onLoginPress.bind(this)} title="Entrar" color='#f39c12' />
           <View style={styles.signUpTextCont}>
             <TouchableHighlight
               onPress={() => navigate('SignUp', {})}
