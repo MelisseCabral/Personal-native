@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { AppRegistry,  StyleSheet,  Text,  View, Navigator } from 'react-native';
+import { AppRegistry,  StyleSheet,  Text,  View, Navigator, Image, TouchableHighlight } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Dimensions} from 'react-native';
 import { StackNavigator} from 'react-navigation';
-import SignUp from './SignUp.js';
+import Chat from './Chat';
 
 const deviceW = Dimensions.get('window').width;
 
@@ -26,7 +26,7 @@ class Home extends Component {
     )
   }
 }
-
+//Acess to profile info
 class Profile extends Component {
   render() {
     return (
@@ -38,6 +38,8 @@ class Profile extends Component {
     )
   }
 }
+
+//List Workouts
 class Treinos extends Component {
   render() {
     return (
@@ -50,17 +52,8 @@ class Treinos extends Component {
   }
 }
 
-class Chat extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Inbox
-        </Text>
-      </View>
-    )
-  }
-}
+//List active conversations
+
 
 export default class HomeNavegation extends Component {
   state= {

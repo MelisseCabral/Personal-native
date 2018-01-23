@@ -1,26 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, Button, StatusBar, TouchableHighlight} from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, StatusBar, TouchableHighlight } from 'react-native';
+import { StackNavigator} from 'react-navigation';
 
-export default class SignUp extends React.Component {
+export default class LoginScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
-
 // Trying to make firebase auth work
-  signUpPress() {
+  constructor(props){
+    super(props);
+    this.state = {email: '', password: '', error:'', loading:false};
+  }
+
+  onLoginPress() {
     this.state({error:'', loading: true});
   
     const{email, password} = this.state;
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
     .then(() => {
       this.state({error: '', loading: false});
       this.props.navigation.navigate('Home');
     })
     .catch(() => {
-        this.state({error: 'Falha ao criar usuario.', loading: false})
+        this.state({error: 'Falha de autenticação.', loading: false})
     })
   };
 
+  
   render() {
     const{navigate} = this.props.navigation;
     return (
@@ -28,7 +35,7 @@ export default class SignUp extends React.Component {
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
         <View style={styles.logoContainer}>
-            <Image source={require('./src/images/icon.png')}
+            <Image source={require('../src/images/icon.png')}
             />
         </View>
         <View style={styles.inputForm}>
@@ -47,20 +54,15 @@ export default class SignUp extends React.Component {
           secureTextEntry
           ref={(input)=> this.passwordInput = input}
           />
-          <TextInput style={styles.input} 
-          underlineColorAndroid='transparent' 
-          placeholder='Confirme a senha' 
-          secureTextEntry
-          ref={(input)=> this.passwordInput = input}
-          />
 
-          <Button style={styles.buttonContainer} onPress={() => navigate('Home', {})} title="Criar Conta" color='#f39c12' />
+          <Button style={styles.buttonContainer} onPress={() => navigate('Home', {})} title="Entrar" color='#f39c12' />
           <View style={styles.signUpTextCont}>
-          <TouchableHighlight
-              onPress={() => navigate('Login', {})}
+            <TouchableHighlight
+              onPress={() => navigate('SignUp', {})}
             >
-              <Text style={styles.signUpText}>Já tem conta? <Text style={styles.loginBtn} >Entrar </Text></Text>
+              <Text style={styles.signUpText}> Criar Conta </Text>
             </TouchableHighlight>
+
           </View>
         </View>
       </View>
@@ -70,10 +72,6 @@ export default class SignUp extends React.Component {
   }
   
 }
-
-function signUpFunc() {
-
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -115,9 +113,6 @@ const styles = StyleSheet.create({
 
     }, signUpText: {
       color: '#FFF',
-      fontSize: 16,
-      marginBottom: 20
-    }, loginBtn: {
-        fontWeight: '900'
+      fontSize: 16
     }
 });

@@ -3,15 +3,19 @@ import { StyleSheet, Text, View, Image, TextInput, Button} from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import { StackNavigator} from 'react-navigation';
 
-import SignUp from './SignUp';
-import HomeNavegation from './Home';
-import LoginScreen from './LoginScreen';
+import SignUp from './screens/SignUp';
+import HomeNavegation from './screens/Home';
+import ChatScreen from './screens/ChatScreen';
+import LoginScreen from './screens/LoginScreen';
+import Chat from './screens/Chat';
 
 const Navigation = StackNavigator(
   {
   Login: {screen: LoginScreen},
   Home: {screen: HomeNavegation},
-  SignUp: {screen: SignUp}
+  SignUp: {screen: SignUp},
+  Chat: {screen: Chat},
+  ChatScreen: {screen: ChatScreen}
   },
   { 
   headerMode: 'screen',
