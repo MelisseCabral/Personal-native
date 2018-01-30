@@ -1,220 +1,187 @@
-This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
-
-Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
-
-## Table of Contents
-
-* [Updating to New Releases](#updating-to-new-releases)
-* [Available Scripts](#available-scripts)
-  * [npm start](#npm-start)
-  * [npm test](#npm-test)
-  * [npm run ios](#npm-run-ios)
-  * [npm run android](#npm-run-android)
-  * [npm run eject](#npm-run-eject)
-* [Writing and Running Tests](#writing-and-running-tests)
-* [Environment Variables](#environment-variables)
-  * [Configuring Packager IP Address](#configuring-packager-ip-address)
-* [Adding Flow](#adding-flow)
-* [Customizing App Display Name and Icon](#customizing-app-display-name-and-icon)
-* [Sharing and Deployment](#sharing-and-deployment)
-  * [Publishing to Expo's React Native Community](#publishing-to-expos-react-native-community)
-  * [Building an Expo "standalone" app](#building-an-expo-standalone-app)
-  * [Ejecting from Create React Native App](#ejecting-from-create-react-native-app)
-    * [Build Dependencies (Xcode & Android Studio)](#build-dependencies-xcode-android-studio)
-    * [Should I Use ExpoKit?](#should-i-use-expokit)
-* [Troubleshooting](#troubleshooting)
-  * [Networking](#networking)
-  * [iOS Simulator won't open](#ios-simulator-wont-open)
-  * [QR Code does not scan](#qr-code-does-not-scan)
-
-## Updating to New Releases
-
-You should only need to update the global installation of `create-react-native-app` very rarely, ideally never.
-
-Updating the `react-native-scripts` dependency of your app should be as simple as bumping the version number in `package.json` and reinstalling your project's dependencies.
-
-Upgrading to a new version of React Native requires updating the `react-native`, `react`, and `expo` package versions, and setting the correct `sdkVersion` in `app.json`. See the [versioning guide](https://github.com/react-community/create-react-native-app/blob/master/VERSIONS.md) for up-to-date information about package version compatibility.
-
-## Available Scripts
-
-If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
-
-### `npm start`
-
-Runs your app in development mode.
-
-Open it in the [Expo app](https://expo.io) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
-
-Sometimes you may need to reset or clear the React Native packager's cache. To do so, you can pass the `--reset-cache` flag to the start script:
-
-```
-npm start -- --reset-cache
-# or
-yarn start -- --reset-cache
-```
-
-#### `npm test`
-
-Runs the [jest](https://github.com/facebook/jest) test runner on your tests.
-
-#### `npm run ios`
-
-Like `npm start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
-
-#### `npm run android`
-
-Like `npm start`, but also attempts to open your app on a connected Android device or emulator. Requires an installation of Android build tools (see [React Native docs](https://facebook.github.io/react-native/docs/getting-started.html) for detailed setup). We also recommend installing Genymotion as your Android emulator. Once you've finished setting up the native build environment, there are two options for making the right copy of `adb` available to Create React Native App:
-
-##### Using Android Studio's `adb`
-
-1. Make sure that you can run adb from your terminal.
-2. Open Genymotion and navigate to `Settings -> ADB`. Select “Use custom Android SDK tools” and update with your [Android SDK directory](https://stackoverflow.com/questions/25176594/android-sdk-location).
-
-##### Using Genymotion's `adb`
-
-1. Find Genymotion’s copy of adb. On macOS for example, this is normally `/Applications/Genymotion.app/Contents/MacOS/tools/`.
-2. Add the Genymotion tools directory to your path (instructions for [Mac](http://osxdaily.com/2014/08/14/add-new-path-to-path-command-line/), [Linux](http://www.computerhope.com/issues/ch001647.htm), and [Windows](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/)).
-3. Make sure that you can run adb from your terminal.
-
-#### `npm run eject`
-
-This will start the process of "ejecting" from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project.
-
-**Warning:** Running eject is a permanent action (aside from whatever version control system you use). An ejected app will require you to have an [Xcode and/or Android Studio environment](https://facebook.github.io/react-native/docs/getting-started.html) set up.
-
-## Customizing App Display Name and Icon
-
-You can edit `app.json` to include [configuration keys](https://docs.expo.io/versions/latest/guides/configuration.html) under the `expo` key.
-
-To change your app's display name, set the `expo.name` key in `app.json` to an appropriate string.
-
-To set an app icon, set the `expo.icon` key in `app.json` to be either a local path or a URL. It's recommended that you use a 512x512 png file with transparency.
-
-## Writing and Running Tests
-
-This project is set up to use [jest](https://facebook.github.io/jest/) for tests. You can configure whatever testing strategy you like, but jest works out of the box. Create test files in directories called `__tests__` or with the `.test` extension to have the files loaded by jest. See the [the template project](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/App.test.js) for an example test. The [jest documentation](https://facebook.github.io/jest/docs/en/getting-started.html) is also a wonderful resource, as is the [React Native testing tutorial](https://facebook.github.io/jest/docs/en/tutorial-react-native.html).
-
-## Environment Variables
-
-You can configure some of Create React Native App's behavior using environment variables.
-
-### Configuring Packager IP Address
-
-When starting your project, you'll see something like this for your project URL:
-
-```
-exp://192.168.0.2:19000
-```
-
-The "manifest" at that URL tells the Expo app how to retrieve and load your app's JavaScript bundle, so even if you load it in the app via a URL like `exp://localhost:19000`, the Expo client app will still try to retrieve your app at the IP address that the start script provides.
-
-In some cases, this is less than ideal. This might be the case if you need to run your project inside of a virtual machine and you have to access the packager via a different IP address than the one which prints by default. In order to override the IP address or hostname that is detected by Create React Native App, you can specify your own hostname via the `REACT_NATIVE_PACKAGER_HOSTNAME` environment variable:
-
-Mac and Linux:
-
-```
-REACT_NATIVE_PACKAGER_HOSTNAME='my-custom-ip-address-or-hostname' npm start
-```
-
-Windows:
-```
-set REACT_NATIVE_PACKAGER_HOSTNAME='my-custom-ip-address-or-hostname'
-npm start
-```
-
-The above example would cause the development server to listen on `exp://my-custom-ip-address-or-hostname:19000`.
-
-## Adding Flow
-
-Flow is a static type checker that helps you write code with fewer bugs. Check out this [introduction to using static types in JavaScript](https://medium.com/@preethikasireddy/why-use-static-types-in-javascript-part-1-8382da1e0adb) if you are new to this concept.
-
-React Native works with [Flow](http://flowtype.org/) out of the box, as long as your Flow version matches the one used in the version of React Native.
-
-To add a local dependency to the correct Flow version to a Create React Native App project, follow these steps:
-
-1. Find the Flow `[version]` at the bottom of the included [.flowconfig](.flowconfig)
-2. Run `npm install --save-dev flow-bin@x.y.z` (or `yarn add --dev flow-bin@x.y.z`), where `x.y.z` is the .flowconfig version number.
-3. Add `"flow": "flow"` to the `scripts` section of your `package.json`.
-4. Add `// @flow` to any files you want to type check (for example, to `App.js`).
-
-Now you can run `npm run flow` (or `yarn flow`) to check the files for type errors.
-You can optionally use a [plugin for your IDE or editor](https://flow.org/en/docs/editors/) for a better integrated experience.
-
-To learn more about Flow, check out [its documentation](https://flow.org/).
-
-## Sharing and Deployment
-
-Create React Native App does a lot of work to make app setup and development simple and straightforward, but it's very difficult to do the same for deploying to Apple's App Store or Google's Play Store without relying on a hosted service.
-
-### Publishing to Expo's React Native Community
-
-Expo provides free hosting for the JS-only apps created by CRNA, allowing you to share your app through the Expo client app. This requires registration for an Expo account.
-
-Install the `exp` command-line tool, and run the publish command:
-
-```
-$ npm i -g exp
-$ exp publish
-```
-
-### Building an Expo "standalone" app
-
-You can also use a service like [Expo's standalone builds](https://docs.expo.io/versions/latest/guides/building-standalone-apps.html) if you want to get an IPA/APK for distribution without having to build the native code yourself.
-
-### Ejecting from Create React Native App
-
-If you want to build and deploy your app yourself, you'll need to eject from CRNA and use Xcode and Android Studio.
-
-This is usually as simple as running `npm run eject` in your project, which will walk you through the process. Make sure to install `react-native-cli` and follow the [native code getting started guide for React Native](https://facebook.github.io/react-native/docs/getting-started.html).
-
-#### Should I Use ExpoKit?
-
-If you have made use of Expo APIs while working on your project, then those API calls will stop working if you eject to a regular React Native project. If you want to continue using those APIs, you can eject to "React Native + ExpoKit" which will still allow you to build your own native code and continue using the Expo APIs. See the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md) for more details about this option.
-
-## Troubleshooting
-
-### Networking
-
-If you're unable to load your app on your phone due to a network timeout or a refused connection, a good first step is to verify that your phone and computer are on the same network and that they can reach each other. Create React Native App needs access to ports 19000 and 19001 so ensure that your network and firewall settings allow access from your device to your computer on both of these ports.
-
-Try opening a web browser on your phone and opening the URL that the packager script prints, replacing `exp://` with `http://`. So, for example, if underneath the QR code in your terminal you see:
-
-```
-exp://192.168.0.1:19000
-```
-
-Try opening Safari or Chrome on your phone and loading
-
-```
-http://192.168.0.1:19000
-```
-
-and
-
-```
-http://192.168.0.1:19001
-```
-
-If this works, but you're still unable to load your app by scanning the QR code, please open an issue on the [Create React Native App repository](https://github.com/react-community/create-react-native-app) with details about these steps and any other error messages you may have received.
-
-If you're not able to load the `http` URL in your phone's web browser, try using the tethering/mobile hotspot feature on your phone (beware of data usage, though), connecting your computer to that WiFi network, and restarting the packager.
-
-### iOS Simulator won't open
-
-If you're on a Mac, there are a few errors that users sometimes see when attempting to `npm run ios`:
-
-* "non-zero exit code: 107"
-* "You may need to install Xcode" but it is already installed
-* and others
-
-There are a few steps you may want to take to troubleshoot these kinds of errors:
-
-1. Make sure Xcode is installed and open it to accept the license agreement if it prompts you. You can install it from the Mac App Store.
-2. Open Xcode's Preferences, the Locations tab, and make sure that the `Command Line Tools` menu option is set to something. Sometimes when the CLI tools are first installed by Homebrew this option is left blank, which can prevent Apple utilities from finding the simulator. Make sure to re-run `npm/yarn run ios` after doing so.
-3. If that doesn't work, open the Simulator, and under the app menu select `Reset Contents and Settings...`. After that has finished, quit the Simulator, and re-run `npm/yarn run ios`.
-
-### QR Code does not scan
-
-If you're not able to scan the QR code, make sure your phone's camera is focusing correctly, and also make sure that the contrast on the two colors in your terminal is high enough. For example, WebStorm's default themes may [not have enough contrast](https://github.com/react-community/create-react-native-app/issues/49) for terminal QR codes to be scannable with the system barcode scanners that the Expo app uses.
-
-If this causes problems for you, you may want to try changing your terminal's color theme to have more contrast, or running Create React Native App from a different terminal. You can also manually enter the URL printed by the packager script in the Expo app's search bar to load it manually.
+# Personal
+ <b>
+ Documentação de projeto para gerenciamento de treinos de atividades fisicas.<br>
+ Por: Melisse Cabral, Julio Lima<br>
+ Início: 05/09/2016<br>
+ Previsão de conclusão: 05/12/2016<br></b>
+ 
+ <h1>A proposta do aplicativo:</h1>
+ 
+ <p align="justify" >A proposta do aplicativo é gerenciar o treino dos praticantes de atividades fisicas de iniciantes a avançados, proporcionando um ambiente gamificado para que se estimule o ganho de massa muscular e/ou perda de gordura. Também substituindo a ficha clássica de papel adotada por maioria das academias de modo que facilite o acesso já que notavelmente foi adotado o uso de smartphones durante o treino por grande parte dos praticantes da musculação. Podendo ser adotado por academias (como possíveis clientes afim de rentabilizar a concepção do aplicativo criando assim um aplicativo genérico que poderá se adaptar conforme as necessidades de academias clientes) e uma versão a ser lançada a usuário comum.</p>
+ 
+ <b>IDE: Visual studio</b>
+ 
+ <p align="justify" >IDE Escolhida pela fácil usabilidade e compatibilidade com android, iOs e windows phone e também por obter melhor desempenho nos computadores utilizados na execução deste projeto.
+ 
+ <b>Cores padrão:</b>
+ Vermelho, branco e fonte preta.
+ 
+ <p align="justify" >A escolha da cor foi baseada após pesquisa sobre a sensação que a cor pode provocar ou intensificar. A cor vermelha como principal por ser uma cor quente que induz um estado de alerta é o que buscamos já que o propósito é o aplicativo seja utilizado em no momento do exercício físico.
+ 
+ <h2>Estratégia de desenvolvimento:</h2>
+ 
+ <p align="justify" >Uso de orientação a objeto, adotando sempre que possível os padrões de projeto descrito pelo Gang of Four. Adotando também a metodologia de desenvolvimento dirigido por testes e o uso de interfaces para diminuir ao máximo o acoplamento  entre as classes utilizadas. Seguindo os padrões de um código coerente e coeso.
+ 
+ <h2> Arquitetura do Sistema:</h2>
+ 
+ <b align = "center">
+ <p align="center" >
+ ![arquitetura_meupersonal](https://cloud.githubusercontent.com/assets/9977351/18939403/72ec832e-85d6-11e6-814e-1dbcc9066912.png)
+
+ </b>
+ 
+ <h1> Funcionalidades:</h1><br>
+ <h2>User stories</h2>
+ 
+ <b>US1:</b> Como usuário sem vinculo a alguma academia, gostaria de ter como escolher a divisão de agrupamento musculares de acordo com minha vontade.<br>
+ <b>Cliente:</b> Usuário sem vinculo<br>
+ <b>Funcionalidade:</b> Escolha de divisão de agrupamentos musculares por usuário.<br>
+ <br>
+ <b>US2:</b> Como usuário sem vinculo a alguma academia gostaria de buscar por uma academia vinculada ao aplicativo.<br>
+ <b>Cliente:</b> Usuário sem vinculo<br>
+ <b>Funcionalidade:</b> Busca de academias.<br>
+ <br>
+ <b>US3:</b> Como usuário sem vinculo a alguma academia gostaria de visualizar informações de academias vinculada ao aplicativo.<br>
+ <b>Cliente:</b> Usuário sem vinculo<br>
+ <b>Funcionalidade:</b> Visualizar planos disponiveis.<br>
+ <br>
+ <b>US4:</b> Como usuário sem vinculo a alguma academia gostaria de realizar uma pré inscrição.<br>
+ <b>Cliente:</b> Usuário sem vinculo<br>
+ <b>Funcionalidade:</b> Realizar matricula de novo usuario a academia.<br>
+ <br>
+ <b>US5:</b> Como gerenciador de estabelecimento gostaria de ter acesso a lista de clientes com informações sobre seu vinculo.
+ <br><b>Cliente:</b> Gerenciador 
+ <br><b>Funcionalidade:</b> Acesso a clientes do estabelecimento e a informações sobre o seu vinculo atual com o estabelecimento.<br>
+ <br>
+ <b>US6:</b> Como gerenciador de estabelecimento gostaria de registrar pagamentos de mensalidades por outros meios.
+ <br><b>Cliente:</b> Gerenciador 
+ <br><b>Funcionalidade:</b> Registro de pagamento de mensalidade de usuarios por meios externos.<br>
+ <br>
+ <b>US7:</b> Como usuário sem vinculo a estabelecimentos gostaria de ter acesso ao banco de dados de exercícios existentes no aplicativo separados por músculo alvo.
+ <br><b>Cliente:</b> Usuário sem vinculo
+ <br><b>Funcionalidade:</b> Consulta de exercícios por grupo muscular.<br>
+ <br>
+ <b>US8:</b> Como usuário gostaria de um sistema de classificação de exercícios.
+ <br><b>Cliente:</b> Usuário em geral
+ <br>Funcionalidade: Avaliação dos usuários em cada exercício afim de obter uma média.<br>
+ <br>
+ <b>US9:</b> Como usuário gostaria de uma plataforma de exercícios, onde eu pudesse adiciona-lo a minha lista de exercício e houvesse um mini resumo do exercício juntamente com uma figura explicativa e um vídeo.
+ <br><b>Cliente:</b> Usuário em geral
+ <br>Funcionalidade: Blog de exercícios.<br>
+ <br>
+ <b>US10:</b> Como personal gostaria de poder comentar os exercicíos da plataforma de forma que para meus alunos meu comentário aparecesse primeiro.
+ <br><b>Cliente:</b> Personal
+ <br>Funcionalidade: Comentário de exercícios.<br>
+ <br>
+ <b>US11:</b> Como usuário sem vinculos a estabelecimentos gostaria de ter como escolher adicionar exercicio ao meu treino.
+ <br><b>Cliente:</b> Usuário sem vinculo
+ <br><b>Funcionalidade:</b> Adicionar exercício.<br>
+ <br>
+ <b>US12:</b> Como usuário sem vinculos a estabelecimentos gostaria de ter como escolher remover exercicio do meu treino.
+ <br><b>Cliente:</b> Usuário sem vinculo
+ <br><b>Funcionalidade:</b> Remover exercício.<br>
+ <br>
+ <b>US13:</b> Como personal gostaria de adicionar observações aos meus exercícios e treino dos alunos;
+ <br><b>Cliente:</b> Personal
+ <br><b>Funcionalidade:</b> Adicionar observação de exercício e treinos ao aluno.<br>
+ <br>
+ <b>US14:</b> Como usuário vinculado gostaria de pagar a mensalidade pelo meu cartão de crédito através do aplicativo.
+ <br><b>Cliente:</b> Usuário vinculado
+ <br><b>Funcionalidade:</b> Fazer Pagamento online de mensalidade.<br>
+ <br>
+ <b>US15:</b> Como usuário vinculado gostaria de poder trocar mensagens com colegas da academia e personal.
+ <br><b>Cliente:</b> Usuário vinculado
+ <br><b>Funcionalidade:</b> Troca de mensagem com colegas e personal.<br>
+ <br>
+ <b>US16:</b> Como usuário gostaria de ter acesso a um portal de mensagens da academia.
+ <br><b>Cliente:</b> Usuário vinculado
+ <br><b>Funcionalidade:</b> Acesso a portal de mensagens da academia.<br>
+ <br>
+ 
+ <h1>Cronograma de execução</h1><br>
+ 
+ <h3>Fase 1: Criação de protótipo das interfaces, e transições.</h3>
+ 
+ <p align="justify" >Nessa fase do projeto é desejável a criação de todas as views do aplicativo que estará documentado mais abaixo nesse mesmo documento. Com o intuito de uma melhor perspectiva de melhorias e abstração na arquitetura do design que será adotado com base nas funcionalidades que a serem implantadas.
+ 
+ <h3>Fase 2: Concepção da parte arquitetural do back-end.</h3>
+ 
+ Escolhas de modelos e padrões a serem adotados, documentação por meio de diagramas UML detalhados.
+ 
+ <h3>Fase 3: Criação de testes.</h3>
+ 
+ <p align="justify" >Criação de testes automáticos para todas as funcionalidades implementadas, com a finalidade de desenvolvermos o projeto guiado por testes. 
+ 
+ 
+ <h3>Fase 4: Programação do back-end.</h3>
+ 
+ <p align="justify" >Programação das funcionalidades seguindo a arquitetura e os testes do modo que foi previsto nas fases 2 e 3.
+ 
+ 
+ <h3>Fase 5: Finalização e rentabilização.</h3>
+ 
+  <p align="justify" >A fase 5 consistem em promover o aplicativo e busca de usuários de modo que o aplicativo se torne rentável financeiramente com meta de obter retorno durante os primeiros 6 meses após sua publicação.
+ 
+ <h1>Pacotes</h1>
+ 
+ <h3>Pacote User</h3>
+ 
+ <p align="justify" >No pacote user estarão mantidas apenas as informações relacionadas ao usuário, como login, senha e dados pessoais. Sendo dividido o tipo de usuário em três com diferentes tipos Gerente, treinador e aluno.
+ No pacote foi utilizado o design pattern Abstract Factory. Contendo uma super classe User e três classes filhas que herdam os dados de User.
+ <p align="center" >
+ ![user_diagram](https://cloud.githubusercontent.com/assets/9977351/18956370/97084d3c-8631-11e6-8721-888cc05daddf.png)
+ 
+ <h3>Pacote Account</h3>
+ 
+ <p align="justify" >Neste pacotes estão contidas a estruturação por composiçao de todas as informações relacionadas ao usuário como treinos, informações pessoais e troca de mensagens. Para garantir a segurança e consistencia dos dados contidos em cada classe se faz necessário uma forte utilização de encapsulamento dos dados de cada objeto. A classe Account é composta por objetos dos tipos User, Chat, Profile e Workout.
+ <p align="center" >
+![account_simplificado 1](https://cloud.githubusercontent.com/assets/9977351/18956621/6ef08a66-8632-11e6-9f4d-cca900dac014.png)
+
+ <h3>Pacote Workout</h3>
+ 
+ <p align="justify" >No pacote workout contém um conjunto de treinos onde estão agrupados os exercício. Possui uma interface WorkoutService por onde será possível realizar alterações no treinamento do usuário garantindo assim o baixo acoplamento e garantindo a consistencia dos dados.
+ O pacote é composto de classes do tipo Exercise, Workout e a interface WorkoutServices.
+ <p align="center" >
+ ![workout_diagram](https://cloud.githubusercontent.com/assets/9977351/18962905/0086111a-8649-11e6-9348-f54458579036.png)
+ 
+ <h3>Pacote Communication</h3>
+ 
+ <p align="justify" >O pacote fornecerá inicialmente a estrutura necessária para a comunicação entre dois usuários. O pacote é composto por dois tipos basicos de classe que são Chat e Message. A classe Chat fará a comunicação final com a interface gráfica e é composta por objetos dos tipos User e Message. Ainda deverá ser analisado o uso de uma interface para fazer a comunicação e troca de informações com a interface gráfica fornecida ao usuário.
+ <p align="center" >
+ ![communication_diagram](https://cloud.githubusercontent.com/assets/9977351/18962916/07e0ac18-8649-11e6-821b-96276ec4fdc1.png)
+ 
+ <h1> Views</h1>
+ 
+ <h3>Inicial</h3>
+ 
+ <p align="justify" >A tela inicial será a tela de apresentação contendo apenas a logo do aplicativo e mais dois botões "Novo por aqui?" e "Não" que levam o usuário a tela de cadastro e a tela de login respectivamente.
+ 
+ <p align="center" >
+![inicial](https://cloud.githubusercontent.com/assets/9977351/18917578/95d19126-856e-11e6-841d-7c4394a5fdf2.jpg)
+ 
+ <h3>Tela de Cadastro</h3>
+ 
+ Na tela de cadastro haverá apenas três campos de informações necessárias para criação de conta, deixando pra complemtentar as outrar informações posteriormente após um primeiro contato do usuário com a aplicativo deixando na mão do usuário a escolha de um momento oportuno para completar o cadastro. Contando também com a opção de realizar o cadastro com o facebook ou instagram. 
+ 
+ <h3>Tela de Login</h3>
+ 
+ Tela de Login interativa contando apenas com os dois campo e botões para login com facebook ou instagram. E caso opte pelo login por username e senha após sair do campo login realiza uma busca no banco de dados a procura do usuario e o numero de caracteres que possui sua senha, caso não encontrado exibe mensagem de erro. Quando encontrado e o numero de caractere do campo password atingir o numero de caracteres da senha realiza tentativa de login.
+  <p align="center" >
+![sign-up](https://cloud.githubusercontent.com/assets/9977351/18972847/2323f908-8671-11e6-82d4-0aa608a4d84f.png)
+
+ 
+ <h3>Menu</h3>
+ 
+ <p align="justify" >Após logado será possivel acessar o menu do usuário clicando no botão no canto esquerdo superior ou deslizando a tela da esquerda para a direita. O menu será composto de foto de perfil, nome e opções meu perfil, treinos, mensagens, configurações e fale conosco. 
+ 
+ <h3>Tela de Perfil</h3>
+ 
+Na tela de perfil haverá apenas foto, nome e descrição opcional. O perfil pessoal será visivel apenas a pessoas de um mesmo ciclo ou clientes do mesmo estabelecimento. 
+
+<h3>Tela de Mensagens</h3>
+
+<p align="justify" >Exibe a uma lista de chats já iniciado. Contendo na toolbar no direito um botão para iniciar novas conversas. O usuário tem a opção de apagar as conversas clicando e segurando a mensagem durante 1s ou abrindo a conversa na toolbar canto direito.
+
+<h3>Tela de Treinos</h3>
+
+<p align="justify" >Será a primeira tela após login. Possuira a lista de Exercicios por padrão separando os por marcador de cores diferentes para cada dia de treino podendo ser alterado nas configurações para exibir por dias de treino. 
