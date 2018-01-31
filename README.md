@@ -26,8 +26,7 @@
  
  <b align = "center">
  <p align="center" >
- ![arquitetura_meupersonal](https://cloud.githubusercontent.com/assets/9977351/18939403/72ec832e-85d6-11e6-814e-1dbcc9066912.png)
-
+  
  </b>
  
  <h1> Funcionalidades:</h1><br>
@@ -129,13 +128,11 @@
  <p align="justify" >No pacote user estarão mantidas apenas as informações relacionadas ao usuário, como login, senha e dados pessoais. Sendo dividido o tipo de usuário em três com diferentes tipos Gerente, treinador e aluno.
  No pacote foi utilizado o design pattern Abstract Factory. Contendo uma super classe User e três classes filhas que herdam os dados de User.
  <p align="center" >
- ![user_diagram](https://cloud.githubusercontent.com/assets/9977351/18956370/97084d3c-8631-11e6-8721-888cc05daddf.png)
  
  <h3>Pacote Account</h3>
  
  <p align="justify" >Neste pacotes estão contidas a estruturação por composiçao de todas as informações relacionadas ao usuário como treinos, informações pessoais e troca de mensagens. Para garantir a segurança e consistencia dos dados contidos em cada classe se faz necessário uma forte utilização de encapsulamento dos dados de cada objeto. A classe Account é composta por objetos dos tipos User, Chat, Profile e Workout.
  <p align="center" >
-![account_simplificado 1](https://cloud.githubusercontent.com/assets/9977351/18956621/6ef08a66-8632-11e6-9f4d-cca900dac014.png)
 
  <h3>Pacote Workout</h3>
  
@@ -148,8 +145,7 @@
  
  <p align="justify" >O pacote fornecerá inicialmente a estrutura necessária para a comunicação entre dois usuários. O pacote é composto por dois tipos basicos de classe que são Chat e Message. A classe Chat fará a comunicação final com a interface gráfica e é composta por objetos dos tipos User e Message. Ainda deverá ser analisado o uso de uma interface para fazer a comunicação e troca de informações com a interface gráfica fornecida ao usuário.
  <p align="center" >
- ![communication_diagram](https://cloud.githubusercontent.com/assets/9977351/18962916/07e0ac18-8649-11e6-821b-96276ec4fdc1.png)
- 
+  
  <h1> Views</h1>
  
  <h3>Inicial</h3>
@@ -167,8 +163,6 @@
  
  Tela de Login interativa contando apenas com os dois campo e botões para login com facebook ou instagram. E caso opte pelo login por username e senha após sair do campo login realiza uma busca no banco de dados a procura do usuario e o numero de caracteres que possui sua senha, caso não encontrado exibe mensagem de erro. Quando encontrado e o numero de caractere do campo password atingir o numero de caracteres da senha realiza tentativa de login.
   <p align="center" >
-![sign-up](https://cloud.githubusercontent.com/assets/9977351/18972847/2323f908-8671-11e6-82d4-0aa608a4d84f.png)
-
  
  <h3>Menu</h3>
  
